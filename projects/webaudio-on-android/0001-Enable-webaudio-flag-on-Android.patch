@@ -1,0 +1,41 @@
+From be11ef56576d1a85013e1d28207fea69cfa1728d Mon Sep 17 00:00:00 2001
+From: xingnan <xingnan.wang@intel.com>
+Date: Tue, 28 May 2013 04:13:25 +0800
+Subject: [PATCH] Enable webaudio flag on Android
+
+---
+ content/browser/web_contents/web_contents_impl.cc |    4 ++--
+ content/renderer/render_thread_impl.cc            |    2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/content/browser/web_contents/web_contents_impl.cc b/content/browser/web_contents/web_contents_impl.cc
+index eeba6d3..b13cd5c 100644
+--- a/content/browser/web_contents/web_contents_impl.cc
++++ b/content/browser/web_contents/web_contents_impl.cc
+@@ -456,8 +456,8 @@ WebPreferences WebContentsImpl::GetWebkitPrefs(RenderViewHost* rvh,
+   prefs.databases_enabled =
+       !command_line.HasSwitch(switches::kDisableDatabases);
+ #if defined(OS_ANDROID)
+-  prefs.webaudio_enabled =
+-      command_line.HasSwitch(switches::kEnableWebAudio);
++  prefs.webaudio_enabled = true;
++      //command_line.HasSwitch(switches::kEnableWebAudio);
+ #else
+   prefs.webaudio_enabled =
+       !command_line.HasSwitch(switches::kDisableWebAudio);
+diff --git a/content/renderer/render_thread_impl.cc b/content/renderer/render_thread_impl.cc
+index 9b7524a..3f47cce 100644
+--- a/content/renderer/render_thread_impl.cc
++++ b/content/renderer/render_thread_impl.cc
+@@ -700,7 +700,7 @@ static void AdjustRuntimeFeaturesFromArgs(const CommandLine& command_line) {
+     WebRuntimeFeatures::enableEncryptedMedia(false);
+ 
+ #if defined(OS_ANDROID)
+-  if (command_line.HasSwitch(switches::kEnableWebAudio))
++  //if (command_line.HasSwitch(switches::kEnableWebAudio))
+     WebRuntimeFeatures::enableWebAudio(true);
+ #else
+   if (command_line.HasSwitch(switches::kDisableWebAudio))
+-- 
+1.7.9.5
+
