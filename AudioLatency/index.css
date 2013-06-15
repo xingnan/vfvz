@@ -1,0 +1,17 @@
+.panelStyle{
+	display:block;
+}
+.tableStyle{
+	border:1px solid black;
+	padding:3px;
+	border-spacing:0px;
+	margin:0px;
+	text-align:center;
+}
+.tableStyle td{
+	border:1px solid black;
+	padding:15px;
+	margin:0px;
+	text-align:center;
+	
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+	<meta charset="utf-8">
+	<title>Web audio latency benchmark</title>
+<!--
+#  Copyright (C) 2011 Intel Corporation
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+#  Authors:
+#     Zhou, Weiwei	<weiweix.zhou@intel.com>
+#     Li, Min		<min.a.li@intel.com>
+-->
+ 
+	<link rel="stylesheet" type="text/css" href="index.css" />
+ </head>
+ <body>
+	<script src="jquery.min.js"></script>
+	<script src="runcase.js"></script>
+	<script>
+        var browser_version = browser_check();	
+	var caseId = 0;
+        var totalLatency =0;
+		$(document).ready(function(){
+                    if( ! browser_version ){
+			$("table").append("<tr><td>Cases</td><td>Description</td><td>Count</td><td>Delay time</td></tr>");
+			$("body").append($("<iframe>").css("border","none"));  
+			init();
+			run();
+                    }else{
+                        document.write(browser_version);
+		    }
+		});
+
+	function run()
+	{
+                runTestCase(caseId);
+	}
+	
+	function endCallback(testCase)
+	{	
+		var output = "<tr>";
+                totalLatency += testCase.value;
+		output += "<td>" + (caseId + 1) + "</td>";	
+		output += "<td>" + testCase.description + "</td>";	
+		output += "<td>" + testCase.printedCount + "</td>";	
+		output += "<td>" + testCase.value + "</td>";	
+		output += "</tr>";
+		$("table").append(output);
+		console.log("caseId:" + caseId + " in numberOfCase: " + numberOfCase);
+		if (++caseId < numberOfCase) 
+			run();
+		else
+		{	
+                        caseId = 0;
+                        totalLatency=Math.round(totalLatency*100)/100;
+                        var myoutput = "<tr>";
+                        myoutput += "<td>" +"Total Latency" + "</td>";
+                        myoutput += "<td>" +"" + "</td>";
+                        myoutput += "<td>" +"" + "</td>";
+                        myoutput += "<td>" +totalLatency + "</td>";
+                        myoutput += "</tr>";
+                        $("table").append(myoutput);
+                }
+	}
+
+	</script>
+
+	<div id = panel class="panelStyle">
+                <h2>HTML5 Web Audio Latency Perf</h2>
+		<table id = table class="tableStyle">
+		</table>
+	</div>
+ </body>
+ </html>
