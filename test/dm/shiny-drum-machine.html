@@ -426,6 +426,7 @@ function init() {
         
     startLoadingAssets();
 
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
 
     var finalMixNode;
