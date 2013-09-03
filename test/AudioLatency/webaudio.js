@@ -53,7 +53,10 @@ var count = exec_count;
 function init()
 {
 	numberOfChannels = 1;
-	context = new webkitAudioContext(globalNumberOfChannels, numberOfRenderFrames, sampleRate);
+    if (webkitAudioContext == undefined)
+	    context = new AudioContext(globalNumberOfChannels, numberOfRenderFrames, sampleRate);
+    else
+	    context = new webkitAudioContext(globalNumberOfChannels, numberOfRenderFrames, sampleRate);
 	globalSourceBuffer = context.createBuffer(globalNumberOfChannels, numberOfRenderFrames, context.sampleRate);
 
 }
@@ -137,6 +140,9 @@ function getAudioContext(localNumberOfChannels, localNumberOfRenderFrames, local
 	if (localSampleRate == undefined)
 		localSampleRate = sampleRate;
         //if (!context)
+    if (webkitAudioContext == undefined)
+	    context = new AudioContext(globalNumberOfChannels, numberOfRenderFrames, sampleRate);
+    else
 		context = new webkitAudioContext(localNumberOfChannels, localNumberOfRenderFrames, localSampleRate);
 	return context;
 }
