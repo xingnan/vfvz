@@ -53,7 +53,7 @@ var count = exec_count;
 function init()
 {
 	numberOfChannels = 1;
-	context = new AudioContext(globalNumberOfChannels, numberOfRenderFrames, sampleRate);
+	context = new webkitAudioContext(globalNumberOfChannels, numberOfRenderFrames, sampleRate);
 	globalSourceBuffer = context.createBuffer(globalNumberOfChannels, numberOfRenderFrames, context.sampleRate);
 
 }
@@ -137,7 +137,7 @@ function getAudioContext(localNumberOfChannels, localNumberOfRenderFrames, local
 	if (localSampleRate == undefined)
 		localSampleRate = sampleRate;
         //if (!context)
-		context = new AudioContext(localNumberOfChannels, localNumberOfRenderFrames, localSampleRate);
+		context = new webkitAudioContext(localNumberOfChannels, localNumberOfRenderFrames, localSampleRate);
 	return context;
 }
 
