@@ -53,7 +53,7 @@ var count = exec_count;
 function init()
 {
 	numberOfChannels = 1;
-    if (webkitAudioContext == undefined)
+    if (typeof AudioContext != 'undefined')
 	    context = new AudioContext(globalNumberOfChannels, numberOfRenderFrames, sampleRate);
     else
 	    context = new webkitAudioContext(globalNumberOfChannels, numberOfRenderFrames, sampleRate);
