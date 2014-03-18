@@ -1,0 +1,37 @@
+<html>
+    <title> Xingnan`s Test Page</title>
+<body>
+    <script>
+        var gain = null;
+        window.addEventListener('load', init, false);
+        function init() {
+            try {
+                // Fix up for prefixing
+                window.AudioContext = window.AudioContext||window.webkitAudioContext;
+                var context = new AudioContext();
+                var audio = new Audio("music.ogg");
+                audio.loop =  true;
+                audio.play();
+                var audiosource = context.createMediaElementSource(audio);
+                gain = context.createGain();
+                audiosource.connect(gain);
+                gain.connect(context.destination);
+                //gain.gain.value = 0;
+            }
+            catch(e) {
+                alert('Web Audio API is not supported in this browser');
+            }
+        }
+
+        function mute() {
+            gain.gain.value = 0;
+        }
+
+        function unmute() {
+            gain.gain.value = 1;
+        }
+    </script>
+    <input type="button" onclick="mute();" value="mute">
+    <input type="button" onclick="unmute();" value="unmute">
+</body>
+</html>
