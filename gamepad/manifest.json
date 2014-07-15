@@ -1,0 +1,13 @@
+{
+  "name": "GamepadTester",
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  },
+  "description": "Gamepad API tester",
+  "version": "0.0.1",
+  "permissions": [],
+  "required_version": "1.0",
+  "plugin": []
+}
